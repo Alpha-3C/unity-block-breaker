@@ -3,7 +3,6 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.Recorder;
 using UnityEditor.Recorder.Encoder;
-using UnityEditor.Recorder.Input;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -45,7 +44,8 @@ internal static class AutoDemoRecorder
             var movie = ScriptableObject.CreateInstance<MovieRecorderSettings>();
             movie.name = "Automatic Demo Movie";
             movie.Enabled = true;
-            movie.ImageInputSettings = new GameViewInputSettings();
+            // Keep the default Game View input. MovieRecorderSettings configures it
+            // to use even dimensions for MP4; replacing it loses that setting.
             movie.CaptureAudio = true;
             movie.EncoderSettings = new CoreEncoderSettings
             {
