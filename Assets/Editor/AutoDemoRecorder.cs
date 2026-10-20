@@ -58,8 +58,10 @@ internal static class AutoDemoRecorder
             var recordingSettings = ScriptableObject.CreateInstance<RecorderControllerSettings>();
             recordingSettings.AddRecorderSettings(movie);
             recordingSettings.SetRecordModeToManual();
-            recordingSettings.FrameRate = 30;
-            recordingSettings.CapFrameRate = false;
+            // Variable playback keeps gameplay tied to real time while recording.
+            // FrameRate is the maximum capture rate in this mode.
+            recordingSettings.FrameRatePlayback = FrameRatePlayback.Variable;
+            recordingSettings.FrameRate = 60;
             recordingSettings.ExitPlayMode = false;
 
             controller = new RecorderController(recordingSettings);

@@ -84,3 +84,5 @@ rb.velocity = outVec.normalized * MoveSpeed;
 ## 五、编辑器 Demo 录制
 
 项目加入 Unity Recorder 4.0.1。`Assets/Editor/DemoRecorderSettings.asset` 中的 **Auto Record On Play** 是序列化布尔选项，默认关闭。勾选后，编辑器的 `AutoDemoRecorder` 监听 Play 模式状态：进入 Play 时创建 Movie Recorder 并录制 Game View；退出 Play 前调用 `StopRecording()`，让 MP4 完成保存。视频写入项目根目录 `Recordings/`，该目录被 Git 忽略。此逻辑放在 `Editor` 目录，构建游戏时不会带入。
+
+交互玩法使用 **Variable** 帧率录制，最高 60 FPS，让录制帧按实际经过的时间播放。若使用 **Constant 30 FPS** 却关闭帧率上限，Recorder 会让每帧的游戏时间固定前进 1/30 秒；编辑器实际渲染超过 30 FPS 时，游戏会看起来加速。MP4 还要求偶数宽高，因此保留 `MovieRecorderSettings` 自带的 Game View 输入设置，由 Recorder 自动处理奇数尺寸。
